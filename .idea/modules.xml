@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/shell-http.iml" filepath="$PROJECT_DIR$/shell-http.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/shell-http.iml" filepath="$PROJECT_DIR$/.idea/shell-http.iml" />
     </modules>
   </component>
 </project>
