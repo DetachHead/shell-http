@@ -1,4 +1,4 @@
-import { Application, Router } from "https://deno.land/x/oak/mod.ts";
+import { Application, Router } from "https://deno.land/x/oak@v9.0.1/mod.ts";
 import endpoints from "./endpoints.ts";
 
 const router = new Router();
@@ -14,11 +14,12 @@ for (const endpoint of endpoints) {
       cmd: [endpoint, ...args],
       stdout: "piped",
       stderr: "piped",
+      stdin: "piped",
     });
     if (typeof stdin !== "undefined") {
       await process.stdin?.write(stdin);
-      process.stdin?.close();
     }
+    process.stdin?.close();
     await process.status();
     const decoder = new TextDecoder();
     ctx.response.body = {
