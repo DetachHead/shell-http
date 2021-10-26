@@ -1,5 +1,8 @@
 import { Application, Router } from "https://deno.land/x/oak@v9.0.1/mod.ts";
+import { logger } from "./logger.ts";
 import endpoints from "./endpoints.ts";
+import * as log from "https://deno.land/std@0.105.0/log/mod.ts";
+import { green, yellow } from "https://deno.land/std@0.105.0/fmt/colors.ts";
 
 const router = new Router();
 const app = new Application();
@@ -29,7 +32,16 @@ for (const endpoint of endpoints) {
   });
 }
 
+app.use(logger);
 app.use(router.routes());
 app.use(router.allowedMethods());
+
+app.addEventListener("listen", ({ hostname, port, secure }) => {
+  const url = `${secure ? "https://" : "http://"}${
+    hostname ?? "localhost"
+  }:${port}`;
+
+  log.info(yellow("Listening on:") + " " + green(url));
+});
 
 await app.listen({ port: 8000 });
