@@ -1,8 +1,8 @@
-import { Application, Router } from "https://deno.land/x/oak@v9.0.1/mod.ts";
-import { logger } from "./logger.ts";
-import endpoints from "./endpoints.ts";
-import * as log from "https://deno.land/std@0.105.0/log/mod.ts";
-import { green, yellow } from "https://deno.land/std@0.105.0/fmt/colors.ts";
+import { Application, Router } from "oak";
+import { logger } from "/logger.ts";
+import endpoints from "/endpoints.ts";
+import * as log from "std/log/mod.ts";
+import { green, yellow } from "std/fmt/colors.ts";
 
 const router = new Router();
 const app = new Application();

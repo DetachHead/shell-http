@@ -1,5 +1,5 @@
-import { Middleware } from "https://deno.land/x/oak@v9.0.1/middleware.ts";
-import * as log from "https://deno.land/std@0.105.0/log/mod.ts";
+import { Middleware } from "oak";
+import * as log from "std/log/mod.ts";
 import {
   cyan,
   green,
