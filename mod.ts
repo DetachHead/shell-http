@@ -37,6 +37,7 @@ app.use(router.routes());
 app.use(router.allowedMethods());
 
 app.addEventListener("listen", ({ hostname, port, secure }) => {
+  // noinspection HttpUrlsUsage
   const url = `${secure ? "https://" : "http://"}${
     hostname ?? "localhost"
   }:${port}`;
