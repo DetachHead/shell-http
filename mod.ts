@@ -1,5 +1,8 @@
-import { Application, Router } from "https://deno.land/x/oak/mod.ts";
-import endpoints from "./endpoints.ts";
+import { Application, Router } from "oak";
+import { logger } from "/logger.ts";
+import endpoints from "/endpoints.ts";
+import * as log from "std/log/mod.ts";
+import { green, yellow } from "std/fmt/colors.ts";
 
 const router = new Router();
 const app = new Application();
@@ -14,11 +17,12 @@ for (const endpoint of endpoints) {
       cmd: [endpoint, ...args],
       stdout: "piped",
       stderr: "piped",
+      stdin: "piped",
     });
     if (typeof stdin !== "undefined") {
       await process.stdin?.write(stdin);
-      process.stdin?.close();
     }
+    process.stdin?.close();
     await process.status();
     const decoder = new TextDecoder();
     ctx.response.body = {
@@ -28,7 +32,17 @@ for (const endpoint of endpoints) {
   });
 }
 
+app.use(logger);
 app.use(router.routes());
 app.use(router.allowedMethods());
+
+app.addEventListener("listen", ({ hostname, port, secure }) => {
+  // noinspection HttpUrlsUsage
+  const url = `${secure ? "https://" : "http://"}${
+    hostname ?? "localhost"
+  }:${port}`;
+
+  log.info(yellow("Listening on:") + " " + green(url));
+});
 
 await app.listen({ port: 8000 });
