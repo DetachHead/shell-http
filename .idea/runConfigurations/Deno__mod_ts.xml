@@ -1,5 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Deno: mod.ts" type="DenoConfigurationType" nameIsGenerated="true" inputPath="$PROJECT_DIR$/mod.ts" programParameters="run --allow-net --allow-run --import-map=import_map.json">
+    <option name="applicationArguments" value="" />
     <method v="2" />
   </configuration>
 </component>
