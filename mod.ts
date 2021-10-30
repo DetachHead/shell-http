@@ -2,7 +2,6 @@ import { Application, Router } from "oak";
 import logger from "oak_logger";
 import * as log from "std/log/mod.ts";
 import { green, yellow } from "std/fmt/colors.ts";
-import os from "dos";
 
 const router = new Router();
 const app = new Application();
@@ -48,7 +47,7 @@ app.use(router.routes());
 app.use(router.allowedMethods());
 
 app.addEventListener("listen", ({ hostname, port, secure }) => {
-  const displayHostname = os.platform() !== "windows"
+  const displayHostname = Deno.build.os !== "windows"
     ? hostname
     : undefined ?? "localhost";
   // noinspection HttpUrlsUsage
