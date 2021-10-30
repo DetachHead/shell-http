@@ -3,6 +3,8 @@
     "/": "./",
     "./": "./",
     "std/": "https://deno.land/std@0.105.0/",
-    "oak": "https://deno.land/x/oak@v9.0.1/mod.ts"
+    "oak": "https://deno.land/x/oak@v9.0.1/mod.ts",
+    "oak_logger": "https://deno.land/x/oak_logger@1.0.0/mod.ts",
+    "dos": "https://deno.land/x/dos@v0.11.0/mod.ts"
   }
 }

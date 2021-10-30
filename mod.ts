@@ -1,8 +1,8 @@
 import { Application, Router } from "oak";
-import { logger } from "/logger.ts";
-import endpoints from "/endpoints.ts";
+import logger from "oak_logger";
 import * as log from "std/log/mod.ts";
 import { green, yellow } from "std/fmt/colors.ts";
+import os from "dos";
 
 const router = new Router();
 const app = new Application();
@@ -32,15 +32,17 @@ for (const endpoint of endpoints) {
   });
 }
 
-app.use(logger);
+app.use(logger.logger);
+app.use(logger.responseTime);
 app.use(router.routes());
 app.use(router.allowedMethods());
 
 app.addEventListener("listen", ({ hostname, port, secure }) => {
+  const displayHostname = os.platform() !== "windows"
+    ? hostname
+    : undefined ?? "localhost";
   // noinspection HttpUrlsUsage
-  const url = `${secure ? "https://" : "http://"}${
-    hostname ?? "localhost"
-  }:${port}`;
+  const url = `${secure ? "https://" : "http://"}${displayHostname}:${port}`;
 
   log.info(yellow("Listening on:") + " " + green(url));
 });
