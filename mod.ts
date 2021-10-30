@@ -7,7 +7,17 @@ import os from "dos";
 const router = new Router();
 const app = new Application();
 
+const endpoints = Deno.args;
+if (endpoints.length === 0) {
+  log.error("No endpoints specified");
+  Deno.exit(1);
+}
+
 for (const endpoint of endpoints) {
+  if (endpoint === "") {
+    log.error("Empty endpoint specified");
+    Deno.exit(1);
+  }
   router.post(`/${endpoint}`, async (ctx) => {
     const args: string[] = ctx.request.url.searchParams.getAll("args");
     const stdin = ctx.request.hasBody
