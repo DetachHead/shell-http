@@ -1,7 +1,4 @@
-import { Application, Router } from "oak";
-import logger from "oak_logger";
-import * as log from "std/log/mod.ts";
-import { green, yellow } from "std/fmt/colors.ts";
+import { Application, green, log, logger, Router, yellow } from "./deps.ts";
 
 export const createServer = (commands: string[]): Application => {
   const app = new Application();

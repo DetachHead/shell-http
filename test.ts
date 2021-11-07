@@ -1,6 +1,10 @@
-import { IResponse, superoak } from "superoak";
+import {
+  assertEquals,
+  assertStringIncludes,
+  IResponse,
+  superoak,
+} from "./deps.ts";
 import { createServer } from "./server.ts";
-import { assertEquals, assertStringIncludes } from "std/testing/asserts.ts";
 
 Deno.test("no stdin", async () => {
   const app = createServer(["git"]);

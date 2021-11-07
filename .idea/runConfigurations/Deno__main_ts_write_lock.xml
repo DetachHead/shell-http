@@ -1,6 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Deno: main.ts write lock" type="DenoConfigurationType" inputPath="$PROJECT_DIR$/main.ts" programParameters="run --unstable --allow-net --allow-run --import-map=import_map.json --lock=lock.json --lock-write">
-    <option name="applicationArguments" value="$Prompt$" />
-    <method v="2" />
-  </configuration>
-</component>
