@@ -1,0 +1,12 @@
+name: test
+on:
+    - push
+jobs:
+    build-and-test:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: denoland/setup-deno@v1
+              with:
+                  deno-version: 1.15.2
+            - run: deno test --unstable --allow-net --allow-run --import-map=import_map.json
