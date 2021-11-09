@@ -22,8 +22,10 @@ POST http://localhost:8000/git?args=status
 ## usage
 
 ```
-deno run --allow-net --allow-run mod.ts
+deno run --allow-net --allow-run main.ts git deno
 ```
+
+this will expose the `git` and `deno` commands
 
 ## config
 
