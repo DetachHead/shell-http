@@ -8,7 +8,9 @@ export const createServer = (commands: string[]): Application => {
       log.error("Empty endpoint specified");
       Deno.exit(1);
     }
-    router.post(`/${command}`, async (ctx) => {
+    const endpoint = `/${command}`;
+    log.info(`creating endpoint: ${endpoint}`);
+    router.post(endpoint, async (ctx) => {
       const args: string[] = ctx.request.url.searchParams.getAll("args");
       const stdin = ctx.request.hasBody
         ? await ctx.request.body({ type: "bytes" }).value
