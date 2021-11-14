@@ -1,5 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Deno: write lock" type="DenoConfigurationType" inputPath="$PROJECT_DIR$/deps.ts" programParameters="run --unstable --allow-net --allow-run --lock=lock.json --lock-write --reload">
-    <method v="2" />
-  </configuration>
-</component>
