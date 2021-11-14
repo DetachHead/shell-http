@@ -1,0 +1,58 @@
+name: check-and-release
+
+on:
+  push:
+    branches:
+      - '**'
+  workflow_dispatch:
+    inputs:
+      releaseVersion:
+        default: ''
+        required: false
+        description: release version (leave blank to skip release eand only run checks)
+
+env:
+  DENO_VERSION: 1.13.2 # cant update until https://github.com/denoland/deno/issues/12086 is fixed
+  DENO_ARGS: --unstable --allow-net --allow-run --lock=lock.json
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: ${{ env.DENO_VERSION }}
+      - run: deno lint
+      - run: deno fmt --check
+      - run: deno test $DENO_ARGS
+
+  release:
+    name: release
+    needs:
+      - check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: ${{ env.DENO_VERSION }}
+      - run: |
+          mkdir dist
+          for target in x86_64-pc-windows-msvc x86_64-unknown-linux-gnu x86_64-apple-darwin; do
+            deno compile --no-check $DENO_ARGS --target=$target --output=dist/shell-http-$target src/main.ts
+          done
+        name: compile
+      - uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: dist
+
+      # github release, and the version in package.json was changed
+      - uses: marvinpinto/action-automatic-releases@v1.2.1
+        if: ${{ github.event.inputs.releaseVersion  != '' }}
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          prerelease: false
+          files: dist
+          automatic_release_tag: ${{ github.event.inputs.releaseVersion }}
