@@ -3,8 +3,8 @@ import {
   assertStringIncludes,
   IResponse,
   superoak,
-} from "./deps.ts";
-import { createServer } from "./server.ts";
+} from "../src/deps.ts";
+import { createServer } from "../src/server.ts";
 
 const app = createServer(["git", "cat"]);
 
